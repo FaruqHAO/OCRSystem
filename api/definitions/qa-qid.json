@@ -1,0 +1,45 @@
+{
+  "countryCode": "QA",
+  "documentType": "QID",
+  "fields": [
+    {
+      "name": "name",
+      "label": "Full Name",
+      "kind": "textLine",
+      "normalizer": "name",
+      "hint": "primaryName"
+    },
+    {
+      "name": "qidNumber",
+      "label": "QID Number",
+      "kind": "regex",
+      "pattern": "[234]\\d{2}\\s?\\d{4}\\s?\\d{4}",
+      "match": "contains",
+      "normalizer": "qidNumber"
+    },
+    {
+      "name": "dateOfBirth",
+      "label": "Date of Birth",
+      "kind": "regex",
+      "pattern": "\\b(0[1-9]|[12]\\d|3[01])/(0[1-9]|1[0-2])/(19|20)\\d{2}\\b",
+      "match": "contains",
+      "normalizer": "date"
+    },
+    {
+      "name": "expiryDate",
+      "label": "Expiry Date",
+      "kind": "regex",
+      "pattern": "\\b(0[1-9]|1[0-2])/(20[2-9]\\d)\\b",
+      "match": "contains",
+      "normalizer": "monthYear"
+    },
+    {
+      "name": "nationality",
+      "label": "Nationality",
+      "kind": "regex",
+      "pattern": "\\b[A-Z]{3}\\b",
+      "match": "endOfLine",
+      "normalizer": "upper"
+    }
+  ]
+}

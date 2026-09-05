@@ -1,0 +1,31 @@
+# .NET
+bin/
+obj/
+*.user
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# Env / local
+.env
+uploads/
+
+# Local machine artifacts (never commit)
+.freebuff/
+.docker-config/
+*.log
+*.log.err
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

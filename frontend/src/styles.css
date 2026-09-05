@@ -1,0 +1,303 @@
+:root {
+  --bg: #0f1420;
+  --panel: #1a2130;
+  --panel-border: #2a3348;
+  --text: #e6ebf5;
+  --muted: #8b95a9;
+  --accent: #4f8cff;
+  --green: #35c46b;
+  --amber: #f0a73a;
+  --red: #e5484d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+}
+
+.app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.subtitle {
+  margin: 4px 0 24px;
+  color: var(--muted);
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.panel h2 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 8px 0;
+}
+
+/* upload */
+input[type='file'] {
+  display: block;
+  margin: 12px 0;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+button {
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background: var(--accent);
+}
+
+button.secondary {
+  background: transparent;
+  border-color: var(--panel-border);
+  color: var(--text);
+}
+
+button.danger {
+  background: var(--red);
+}
+
+button.reset {
+  margin-top: 4px;
+}
+
+/* status */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--panel-border);
+  color: var(--text);
+}
+
+.status-badge.completed,
+.status-badge.approved {
+  background: rgba(53, 196, 107, 0.18);
+  color: var(--green);
+}
+
+.status-badge.review_required {
+  background: rgba(240, 167, 58, 0.18);
+  color: var(--amber);
+}
+
+.status-badge.quality_failed,
+.status-badge.failed,
+.status-badge.rejected {
+  background: rgba(229, 72, 77, 0.18);
+  color: var(--red);
+}
+
+.status-badge.processing,
+.status-badge.uploaded {
+  background: rgba(79, 140, 255, 0.18);
+  color: var(--accent);
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.overall strong {
+  color: var(--text);
+}
+
+.overall {
+  color: var(--muted);
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 4px 16px;
+  margin: 14px 0 0;
+}
+
+.meta div {
+  display: flex;
+  gap: 8px;
+}
+
+.meta dt {
+  color: var(--muted);
+}
+
+.meta dd {
+  margin: 0;
+}
+
+.quality-info {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 12px 0 0;
+}
+
+.loading {
+  color: var(--muted);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* fields table */
+table.fields {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.fields th {
+  text-align: left;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+table.fields td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--panel-border);
+  vertical-align: middle;
+}
+
+table.fields tr:last-child td {
+  border-bottom: none;
+}
+
+td.label {
+  font-weight: 600;
+}
+
+tr.missing td {
+  opacity: 0.55;
+}
+
+td.normalized {
+  color: var(--muted);
+}
+
+span.reviewed {
+  color: var(--green);
+}
+
+table.fields input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--panel-border);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.95rem;
+}
+
+.conf {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 140px;
+}
+
+.conf .bar {
+  flex: 1;
+  height: 8px;
+  background: var(--panel-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.conf .fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.fill.good {
+  background: var(--green);
+}
+
+.fill.mid {
+  background: var(--amber);
+}
+
+.fill.bad {
+  background: var(--red);
+}
+
+.conf span {
+  width: 44px;
+  text-align: right;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.review-note {
+  color: var(--green);
+  font-size: 0.9rem;
+  margin: 4px 0 16px;
+}
+
+.error {
+  color: var(--red);
+  background: rgba(229, 72, 77, 0.1);
+  border: 1px solid rgba(229, 72, 77, 0.35);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 12px 0 0;
+}
