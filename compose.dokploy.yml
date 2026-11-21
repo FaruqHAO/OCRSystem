@@ -1,0 +1,70 @@
+services:
+  mongo:
+    image: mongo:8
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks: [backend]
+
+  ocr-service:
+    build: ./ocr-service
+    restart: unless-stopped
+    environment:
+      OCR_MODE: ${OCR_MODE:-mock}
+      OCR_LANG: en
+    volumes:
+      - ocr-models:/root/.paddlex
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz')"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    networks: [backend]
+
+  api:
+    build: ./api
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      Mongo__ConnectionString: mongodb://mongo:27017
+      Mongo__Database: identity_documents
+      Ocr__BaseUrl: http://ocr-service:8000
+      Storage__RootPath: /data/uploads
+      ApiKey: ${API_KEY:?Set API_KEY in Dokploy Environment}
+      Processing__CompletedThreshold: "0.75"
+    volumes:
+      - uploads:/data/uploads
+    depends_on:
+      mongo:
+        condition: service_healthy
+      ocr-service:
+        condition: service_healthy
+    networks: [backend]
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.production
+      args:
+        VITE_API_KEY: ${API_KEY:?Set API_KEY in Dokploy Environment}
+    restart: unless-stopped
+    depends_on: [api]
+    networks: [backend, dokploy-network]
+    labels:
+      - traefik.docker.network=dokploy-network
+
+networks:
+  backend:
+  dokploy-network:
+    external: true
+
+volumes:
+  mongo-data:
+  uploads:
+  ocr-models:
